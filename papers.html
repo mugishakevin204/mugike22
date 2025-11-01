@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Past Exam Papers</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      function showSubjects() {
+        let level = document.getElementById("level").value;
+        let subjects = {
+          P6: ["Math", "Science", "English", "Social Studies", "Kinyarwanda"],
+          S3: [
+            "Physics",
+            "History",
+            "Mathematics",
+            "Chemistry",
+            "Geography",
+            "English",
+            "Entrepreneurship",
+            "Biology",
+            "Kinyarwanda",
+          ],
+          S6: [
+            "Biology",
+            "Economics",
+            "Physics",
+            "History",
+            "Mathematics",
+            "Chemistry",
+            "Geography",
+            "Kinyarwanda",
+            "English",
+          ],
+        };
+
+        let subjectDropdown = document.getElementById("subject");
+        subjectDropdown.innerHTML = "<option value=''>Select Subject</option>";
+
+        if (level in subjects) {
+          subjects[level].forEach((subject) => {
+            let option = document.createElement("option");
+            option.value = subject;
+            option.textContent = subject;
+            subjectDropdown.appendChild(option);
+          });
+        }
+
+        document.getElementById("subject-container").style.display = "block";
+      }
+
+      function showExams() {
+        let level = document.getElementById("level").value;
+        let subject = document.getElementById("subject").value;
+        let examList = document.getElementById("exam-list");
+        examList.innerHTML = "";
+
+        if (level && subject) {
+          for (let year = 2005; year <= 2024; year++) {
+            let examLink = document.createElement("a");
+            examLink.href = `past_papers/${level}/${subject}_${year}.pdf`;
+            examLink.textContent = `${subject} - ${year}`;
+            examLink.target = "_blank";
+
+            let listItem = document.createElement("li");
+            listItem.appendChild(examLink);
+            examList.appendChild(listItem);
+          }
+          document.getElementById("exam-container").style.display = "block";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Select Your Past Paper</h2>
+
+    <label for="level">Choose Level:</label>
+    <select id="level" onchange="showSubjects()">
+      <option value="">Select Level</option>
+      <option value="P6">P6</option>
+      <option value="S3">S3</option>
+      <option value="S6">S6</option>
+    </select>
+
+    <div id="subject-container" style="display: none; margin-top: 10px">
+      <label for="subject">Choose Subject:</label>
+      <select id="subject" onchange="showExams()">
+        <option value="">Select Subject</option>
+      </select>
+    </div>
+
+    <div id="exam-container" style="display: none; margin-top: 10px">
+      <h3>Available Past Papers:</h3>
+      <ul id="exam-list"></ul>
+    </div>
+  </body>
+</html>
