@@ -13,8 +13,9 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
   // Check login info
   if((email === savedEmail && password === savedPassword ) || (email === knownemail && password === knownPassword)) {
     localStorage.setItem("loggedIn", "true"); // mark user as logged in
-    window.location.href = "index.html"; // redirect to dashboard
+    window.location.href = "home.html"; // redirect to dashboard
   } else {
     document.getElementById("message").innerText = "Invalid email or password!";
   }
 });
+
